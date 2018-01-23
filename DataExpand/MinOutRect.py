@@ -8,12 +8,9 @@ def Min_out_rect(image_file):
     if img.shape[2] == 3:
         img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(3, 3)) 
-        kernel2 = cv2.getStructuringElement(cv2.MORPH_RECT,(2, 2)) 
         ret,img_binary = cv2.threshold(img_gray,160,255,cv2.THRESH_BINARY_INV)
         dilated = cv2.dilate(img_binary,kernel)
-        eroded = cv2.erode(dilated, kernel2)
-        cv2.imshow('binary', eroded)
-        _, contours,hierarchy = cv2.findContours(eroded,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        _, contours,hierarchy = cv2.findContours(dilated,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         # try:
         #     print contours[0]
         # except IndexError:
@@ -24,9 +21,6 @@ def Min_out_rect(image_file):
         if w <= 10 or h <= 10:
             print '疑似尺寸错误' + image_file + '\n'
         cv2.drawContours(img,contours,-1,(0,0,255),3)##轮廓
-        cv2.imshow('img',img)
-        cv2.imshow('gray',img_gray)
-        cv2.imshow('binary', img_binary)
         print len(contours)
         cv2.waitKey(0)
     else:
