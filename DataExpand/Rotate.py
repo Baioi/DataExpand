@@ -55,10 +55,5 @@ def Rotate(image, angle, center=None, scale=1.0):
             center = (w / 2, h / 2)
         # 执行旋转
         M = cv2.getRotationMatrix2D(center, angle, scale)
-        rotated = cv2.warpAffine(image, M, (w, h))
+        rotated = cv2.warpAffine(image, M, (w, h), borderValue =(255, 255, 255))
     return rotated
-if __name__ == '__main__':
-    image_path = r'D:\Workspaces\TrafficData\DefinedTS\used\F29.png'
-    image = cv2.imread(image_path)
-    cv2.imshow('result', Rotate(image, 10))
-    cv2.waitKey(0)
