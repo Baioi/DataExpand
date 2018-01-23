@@ -9,7 +9,6 @@ from Resize import deformation
 from Resize import resize
 from Rotate import Rotate,rotate
 from LightChang import ChangeLightPower
-import random
 from ImagesFusion import Images_fusion
 from MinOutRect import Min_out_rect
 import create_Annotations as ano
