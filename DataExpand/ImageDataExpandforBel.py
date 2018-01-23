@@ -179,8 +179,8 @@ if __name__ == "__main__":
                 # return boolean
                 tempnum = 0
                 while contains(Street_vies_image.index(street_img), a1, b1, a2, b2, street_boxes):
-                    a = int(random.uniform(0, sz[1] - (w+1)))
-                    b = int(random.uniform(0, sz[0] - (h+1)))
+                    a = int(random.uniform(1, sz[1] - (w+1)))
+                    b = int(random.uniform(1, sz[0] - (h+1)))
                     a1 = x1 + a
                     a2 = x2 + a
                     b1 = y1 + b
