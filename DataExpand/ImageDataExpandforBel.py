@@ -41,11 +41,11 @@ def contains(ind, x_1, y_1, x_2, y_2, boxpack):
 
 
 if __name__ == "__main__":
-    file_path = './DefinedTS/used'
-    out_path1 = './ExpandedSigns/'
-    SIGN_EXPAN = 1
-    MERGE = 0
-    OVERWRITE = 0
+    file_path = './Belgium/DefinedTS/used'
+    out_path1 = './Belgium/ExpandedSigns/'
+    SIGN_EXPAN = 0
+    MERGE = 1
+    OVERWRITE = 1
     """以下用于生成更多的交通标志，变大变小，旋转光照也做一些变化等"""
     if SIGN_EXPAN == 1:
         if os.path.exists(out_path1):
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     
             for i in range(0, 500):
                 x = random.randint(-10, 10)
-                y = random.randint(55, 460)
+                y = random.randint(60, 200)
                 a = random.uniform(0.7, 1.2)
                 image = Rotate(img, x)    
                 if image.shape[1] > image.shape[0]:
@@ -93,11 +93,11 @@ if __name__ == "__main__":
                 cv2.imwrite(image_file_path+'/'+str(i)+'.png', image)
     """以下用以将交通标志图标和街景图融合在一起，写出XML"""
     if MERGE == 1:
-        Traffic_signs = './ExpandedSigns/'
-        Street_views = './Images/'
-        output_path = './ExpandedImagesFiltered/'
-        out_xml_path = './XML/'
-        out_txt_path = './TXTFiltered/'
+        Traffic_signs = './Belgium/ExpandedSigns/'
+        Street_views = './Belgium/BackgroundImages/'
+        output_path = './Belgium/ExpandedImagesFiltered/'
+        out_xml_path = './Belgium/XML/'
+        out_txt_path = './Belgium/TXTFiltered/'
         Ignored = ['begin', 'einde', 'F34A', 'm3', 'm2', 'lang', 'F4b']
         if os.path.exists(output_path):
             if OVERWRITE == 1:
@@ -119,8 +119,8 @@ if __name__ == "__main__":
         # 交通标志不能重叠 解决（使用street_boxes，判断矩形是否相交）
         # 交通标志的数量 解决
         num = {}
-        f_num = open('num.txt', 'r')
-        f_out = open('statisticFiltered.txt', 'w')
+        f_num = open('./Belgium/num.txt', 'r')
+        f_out = open('./Belgium/statisticFiltered.txt', 'w')
         f_TXT = open(out_txt_path+'output.txt', 'w')
         lines = f_num.readlines()
         for line in lines:

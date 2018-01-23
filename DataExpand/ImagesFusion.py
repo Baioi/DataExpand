@@ -28,8 +28,10 @@ def Images_fusion(image_file1,image_file2,x,y,outputfile):
     if img2.shape[2] == 3:
         img2gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
         # cv2.imshow('img2gray',img2gray)
-        ret,binary = cv2.threshold(img2gray,165,255,cv2.THRESH_BINARY)
-        binary = cv2.bitwise_not(binary)
+        ret,binary = cv2.threshold(img2gray,160,255,cv2.THRESH_BINARY)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(5, 5)) 
+        dilated = cv2.dilate(binary,kernel)
+        binary = cv2.bitwise_not(dilated)
         _, contours, _ = cv2.findContours(binary.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #cv2.drawContours(img2, contours, -1, (0, 0, 255), 2)
         mask = np.zeros(img2.shape).astype(img2.dtype)

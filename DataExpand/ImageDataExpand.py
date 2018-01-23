@@ -44,9 +44,9 @@ def contains(ind, x_1, y_1, x_2, y_2, boxpack):
 if __name__ == "__main__":
     file_path = './TK100/DefinedTS'
     out_path1 = './TK100/ExpandedTS'
-    SIGN_EXPAN = 1
-    MERGE = 0
-    OVERWRITE = 0
+    SIGN_EXPAN = 0
+    MERGE = 1
+    OVERWRITE = 1
     """以下用于生成更多的交通标志，变大变小，旋转光照也做一些变化等"""
     if SIGN_EXPAN:
         if os.path.exists(out_path1):
@@ -98,12 +98,12 @@ if __name__ == "__main__":
         if os.path.exists(output_path):
             if OVERWRITE == 1:
                 shutil.rmtree(output_path)
-                shutil.rmtree(out_txt_path)
+                shutil.rmtree(out_xml_path)
                 os.mkdir(output_path)
-                os.mkdir(out_txt_path)
+                os.mkdir(out_xml_path)
         else:
             os.mkdir(output_path)
-            os.mkdir(out_txt_path)
+            os.mkdir(out_xml_path)
         Traffic_sign_files = os.listdir(Traffic_signs)
         Street_vies_image = os.listdir(Street_views)
         street_list = [0] * len(Street_vies_image)
@@ -114,8 +114,8 @@ if __name__ == "__main__":
         # 交通标志不能重叠 解决（使用street_boxes，判断矩形是否相交）
         # 交通标志的数量 解决
         num = {}
-        f_num = open('num.txt', 'r')
-        f_out = open('statistic.txt', 'w')
+        f_num = open('./TK100/num.txt', 'r')
+        f_out = open('./TK100/statistic.txt', 'w')
         lines = f_num.readlines()
         for line in lines:
             strings = line.split(' ')

@@ -7,9 +7,10 @@ def Min_out_rect(image_file):
     img = cv2.imread(image_file,-1)
     if img.shape[2] == 3:
         img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(3, 3)) 
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(5, 5)) 
         ret,img_binary = cv2.threshold(img_gray,160,255,cv2.THRESH_BINARY_INV)
         dilated = cv2.dilate(img_binary,kernel)
+        # cv2.imshow('dilated', dilated)
         _, contours,hierarchy = cv2.findContours(dilated,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         # try:
         #     print contours[0]
@@ -21,15 +22,28 @@ def Min_out_rect(image_file):
         if w <= 10 or h <= 10:
             print '疑似尺寸错误' + image_file + '\n'
         cv2.drawContours(img,contours,-1,(0,0,255),3)##轮廓
-        print len(contours)
-        cv2.waitKey(0)
+        # print len(contours)
+        # cv2.waitKey(0)
     else:
         r, g, b, a = cv2.split(img)
         rgb_img2 = cv2.merge((r, g, b))
         img_binary = a
+        # cv2.imshow('a', img_binary)
+        
         _, contours, hierarchy = cv2.findContours(img_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        x, y, w, h = cv2.boundingRect(contours[0])
+        max = 0
+        contour = None
+        for ctr in contours:
+            if cv2.contourArea(ctr) > max:
+                max = cv2.contourArea(ctr)
+                contour = ctr
+
+        x, y, w, h = cv2.boundingRect(contour)
         cv2.drawContours(img, contours, -1, (0, 0, 255), 3)  ##轮廓
+        if w <= 10 or h <= 10:
+            print '疑似尺寸错误' + image_file + '\n'
+        # cv2.imshow('img', img)
+        # cv2.waitKey(0)
     return x,y,w+x,h+y
 
 def drawBBox(imgfile,x,y,x2,y2):
@@ -40,7 +54,7 @@ def drawBBox(imgfile,x,y,x2,y2):
 
 if __name__ == "__main__":
 
-    image_file =  r'D:\Workspaces\TrafficData\ExpandedSigns\B9\82.png'
+    image_file =  r'./Belgium/ExpandedSigns\F29\266.png'
     # drawBBox(cv2.imread(img),713,962,724,1080)
     x1,y1,x2,y2=Min_out_rect(image_file)
     drawBBox(image_file,x1,y1,x2,y2)

@@ -74,13 +74,13 @@ def createObjectNode(doc, attrs):
 
 # 将documentElement写入XML文件中
 def writeXMLFile(doc, filename):
-    tmpfile = open('tmp.xml', 'w')
+    tmpfile = open('./TK100/tmp.xml', 'w')
     doc.writexml(tmpfile, addindent=' '*4, newl='\n', encoding='utf-8')
     tmpfile.close()
 
 
     # 删除第一行默认添加的标记
-    fin = open('tmp.xml')
+    fin = open('./TK100/tmp.xml', 'r')
     fout = open(filename, 'w')
     lines = fin.readlines()
 

@@ -30,9 +30,9 @@ def rename(pi, pt):
         i += 1
 if __name__ == '__main__':
     #图像重命名
-    ImagePath = './ExpandedImages'
-    FilteredImagePath = './ExpandedImagesFiltered'
-    TXTPath = './TXT/output.txt'
-    FilteredTXTPath = './TXTFiltered/output.txt'
+    ImagePath = './Belgium/ExpandedImages'
+    FilteredImagePath = './Belgium/ExpandedImagesFiltered'
+    TXTPath = './Belgium/TXT/output.txt'
+    FilteredTXTPath = './Belgium/TXTFiltered/output.txt'
     # rename(ImagePath, TXTPath)
     rename(FilteredImagePath, FilteredTXTPath)
